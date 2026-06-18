@@ -31,8 +31,11 @@ namespace AplicacionArreglos
             this.txtLlave33 = new System.Windows.Forms.TextBox();
             
             this.lblEntradaLlave = new System.Windows.Forms.Label();
-            this.btnDesencriptar = new System.Windows.Forms.Button();
+            this.btnEncriptar = new System.Windows.Forms.Button();
             this.lblResultadoDeterminante = new System.Windows.Forms.Label();
+            
+            this.lblMensajeEncriptado = new System.Windows.Forms.Label();
+            this.txtMensajeEncriptado = new System.Windows.Forms.TextBox();
             
             this.SuspendLayout();
             
@@ -59,6 +62,18 @@ namespace AplicacionArreglos
             this.txtAnalisisFrecuencia.Name = "txtAnalisisFrecuencia";
             this.txtAnalisisFrecuencia.ReadOnly = true;
             this.txtAnalisisFrecuencia.Size = new System.Drawing.Size(200, 23);
+            
+            // lblMensajeEncriptado
+            this.lblMensajeEncriptado.AutoSize = true;
+            this.lblMensajeEncriptado.Location = new System.Drawing.Point(30, 160);
+            this.lblMensajeEncriptado.Name = "lblMensajeEncriptado";
+            this.lblMensajeEncriptado.Text = "Mensaje Encriptado Final:";
+            
+            // txtMensajeEncriptado
+            this.txtMensajeEncriptado.Location = new System.Drawing.Point(30, 190);
+            this.txtMensajeEncriptado.Name = "txtMensajeEncriptado";
+            this.txtMensajeEncriptado.ReadOnly = true;
+            this.txtMensajeEncriptado.Size = new System.Drawing.Size(200, 23);
             
             // lblEntradaLlave
             this.lblEntradaLlave.AutoSize = true;
@@ -90,12 +105,12 @@ namespace AplicacionArreglos
             this.txtLlave33.Location = new System.Drawing.Point(inicioX + espaciado * 2, inicioY + espaciado * 2);
             this.txtLlave33.Size = new System.Drawing.Size(30, 23);
             
-            // btnDesencriptar
-            this.btnDesencriptar.Location = new System.Drawing.Point(300, 180);
-            this.btnDesencriptar.Name = "btnDesencriptar";
-            this.btnDesencriptar.Size = new System.Drawing.Size(150, 30);
-            this.btnDesencriptar.Text = "Validar Llave y Desencriptar";
-            this.btnDesencriptar.Click += new System.EventHandler(this.btnDesencriptar_Click);
+            // btnEncriptar
+            this.btnEncriptar.Location = new System.Drawing.Point(300, 180);
+            this.btnEncriptar.Name = "btnEncriptar";
+            this.btnEncriptar.Size = new System.Drawing.Size(150, 30);
+            this.btnEncriptar.Text = "Validar Llave y Encriptar";
+            this.btnEncriptar.Click += new System.EventHandler(this.btnEncriptar_Click);
             
             // lblResultadoDeterminante
             this.lblResultadoDeterminante.AutoSize = true;
@@ -104,11 +119,13 @@ namespace AplicacionArreglos
             this.lblResultadoDeterminante.Text = "Determinante: ";
 
             // FormularioPrincipal
-            this.ClientSize = new System.Drawing.Size(550, 300);
+            this.ClientSize = new System.Drawing.Size(550, 320);
             this.Controls.Add(this.txtMensaje);
             this.Controls.Add(this.lblEntradaMensaje);
             this.Controls.Add(this.btnAnalizar);
             this.Controls.Add(this.txtAnalisisFrecuencia);
+            this.Controls.Add(this.lblMensajeEncriptado);
+            this.Controls.Add(this.txtMensajeEncriptado);
             this.Controls.Add(this.lblEntradaLlave);
             this.Controls.Add(this.txtLlave11);
             this.Controls.Add(this.txtLlave12);
@@ -119,7 +136,7 @@ namespace AplicacionArreglos
             this.Controls.Add(this.txtLlave31);
             this.Controls.Add(this.txtLlave32);
             this.Controls.Add(this.txtLlave33);
-            this.Controls.Add(this.btnDesencriptar);
+            this.Controls.Add(this.btnEncriptar);
             this.Controls.Add(this.lblResultadoDeterminante);
             this.Name = "FormularioPrincipal";
             this.Text = "Sistema de Encriptación de Datos - Cifrado Hill";
@@ -143,7 +160,10 @@ namespace AplicacionArreglos
         private System.Windows.Forms.TextBox txtLlave33;
         
         private System.Windows.Forms.Label lblEntradaLlave;
-        private System.Windows.Forms.Button btnDesencriptar;
+        private System.Windows.Forms.Button btnEncriptar;
         private System.Windows.Forms.Label lblResultadoDeterminante;
+        
+        private System.Windows.Forms.Label lblMensajeEncriptado;
+        private System.Windows.Forms.TextBox txtMensajeEncriptado;
     }
 }

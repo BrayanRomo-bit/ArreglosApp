@@ -59,7 +59,7 @@ namespace AplicacionArreglos
             }
         }
 
-        private void btnDesencriptar_Click(object remitente, EventArgs e)
+        private void btnEncriptar_Click(object remitente, EventArgs e)
         {
             try
             {
@@ -79,11 +79,56 @@ namespace AplicacionArreglos
                 if (determinante == 0)
                 {
                     MessageBox.Show("Error: La matriz llave no tiene inversa (Determinante es 0). Contraseña inválida.");
+                    return;
                 }
-                else
+                
+                lblResultadoDeterminante.Text = "Determinante: " + determinante.ToString() + " (Válida)";
+
+                // -- INICIO DEL ALGORITMO DE ENCRIPTACIÓN --
+                
+                string texto = txtMensaje.Text.ToUpper().Replace(" ", "");
+                if (texto.Length == 0) return;
+
+                // Rellenar con 'X' para que la longitud sea múltiplo de 3 (dimensión de la matriz)
+                while (texto.Length % 3 != 0)
                 {
-                    lblResultadoDeterminante.Text = "Determinante: " + determinante.ToString() + " (Válida)";
+                    texto += "X";
                 }
+
+                int[] mensajeNumerico = new int[texto.Length];
+                for (int i = 0; i < texto.Length; i++)
+                {
+                    // A=0, B=1, ..., Z=25
+                    mensajeNumerico[i] = texto[i] - 65;
+                }
+
+                int[] mensajeEncriptadoNum = new int[texto.Length];
+
+                // Multiplicar la matriz 3x3 por vectores de tamaño 3
+                for (int i = 0; i < texto.Length; i += 3)
+                {
+                    int p1 = mensajeNumerico[i];
+                    int p2 = mensajeNumerico[i + 1];
+                    int p3 = mensajeNumerico[i + 2];
+
+                    mensajeEncriptadoNum[i] = matrizLlave[0, 0] * p1 + matrizLlave[0, 1] * p2 + matrizLlave[0, 2] * p3;
+                    mensajeEncriptadoNum[i + 1] = matrizLlave[1, 0] * p1 + matrizLlave[1, 1] * p2 + matrizLlave[1, 2] * p3;
+                    mensajeEncriptadoNum[i + 2] = matrizLlave[2, 0] * p1 + matrizLlave[2, 1] * p2 + matrizLlave[2, 2] * p3;
+
+                    // Aplicar módulo 26 para que se mantenga en el abecedario (sumamos 26000 para evitar negativos)
+                    mensajeEncriptadoNum[i] = (mensajeEncriptadoNum[i] % 26 + 26) % 26;
+                    mensajeEncriptadoNum[i + 1] = (mensajeEncriptadoNum[i + 1] % 26 + 26) % 26;
+                    mensajeEncriptadoNum[i + 2] = (mensajeEncriptadoNum[i + 2] % 26 + 26) % 26;
+                }
+
+                // Convertir números de vuelta a letras
+                string textoEncriptado = "";
+                for (int i = 0; i < mensajeEncriptadoNum.Length; i++)
+                {
+                    textoEncriptado += (char)(mensajeEncriptadoNum[i] + 65);
+                }
+
+                txtMensajeEncriptado.Text = textoEncriptado;
             }
             catch (FormatException)
             {
