@@ -15,6 +15,11 @@ namespace AplicacionArreglos
         public FormularioPrincipal()
         {
             InicializarComponentes();
+            
+            // Pre-llenar la matriz con una llave válida por defecto para guiar al usuario
+            txtLlave11.Text = "1"; txtLlave12.Text = "2"; txtLlave13.Text = "3";
+            txtLlave21.Text = "0"; txtLlave22.Text = "1"; txtLlave23.Text = "4";
+            txtLlave31.Text = "5"; txtLlave32.Text = "6"; txtLlave33.Text = "0";
         }
 
         private void btnAnalizar_Click(object remitente, EventArgs e)
@@ -32,10 +37,10 @@ namespace AplicacionArreglos
                 }
 
                 // Práctica Obligatoria - Algoritmo de Ordenamiento (Burbuja) para Análisis de Frecuencia
-                // BUG 1: Error intencional en el ciclo interno que provoca IndexOutOfRangeException
+                // CORRECCIÓN: El límite del ciclo interno fue corregido para evitar IndexOutOfRangeException y ser más eficiente
                 for (int i = 0; i < mensajeNumerico.Length - 1; i++)
                 {
-                    for (int j = 0; j <= mensajeNumerico.Length - 1; j++) // <-- BUG AQUI: debería ser j < mensajeNumerico.Length - 1 - i
+                    for (int j = 0; j < mensajeNumerico.Length - 1 - i; j++) // <-- CORREGIDO
                     {
                         if (mensajeNumerico[j] > mensajeNumerico[j + 1])
                         {
@@ -66,9 +71,9 @@ namespace AplicacionArreglos
                 matrizLlave[2, 0] = int.Parse(txtLlave31.Text); matrizLlave[2, 1] = int.Parse(txtLlave32.Text); matrizLlave[2, 2] = int.Parse(txtLlave33.Text);
 
                 // Práctica Obligatoria - Resolución de Determinante
-                // BUG 2: Error matemático intencional en el signo del segundo cofactor (es + en lugar de -)
+                // CORRECCIÓN: Se corrigió la fórmula matemática (signo del cofactor central es negativo)
                 int determinante = matrizLlave[0, 0] * (matrizLlave[1, 1] * matrizLlave[2, 2] - matrizLlave[1, 2] * matrizLlave[2, 1])
-                                 + matrizLlave[0, 1] * (matrizLlave[1, 0] * matrizLlave[2, 2] - matrizLlave[1, 2] * matrizLlave[2, 0]) // <-- BUG: Debería ser -
+                                 - matrizLlave[0, 1] * (matrizLlave[1, 0] * matrizLlave[2, 2] - matrizLlave[1, 2] * matrizLlave[2, 0]) // <-- CORREGIDO
                                  + matrizLlave[0, 2] * (matrizLlave[1, 0] * matrizLlave[2, 1] - matrizLlave[1, 1] * matrizLlave[2, 0]);
 
                 if (determinante == 0)
@@ -80,9 +85,13 @@ namespace AplicacionArreglos
                     lblResultadoDeterminante.Text = "Determinante: " + determinante.ToString() + " (Válida)";
                 }
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("Por favor, ingresa ÚNICAMENTE números enteros en todas las casillas de la matriz. Las letras o símbolos no son válidos.", "Entrada Inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception excepcion)
             {
-                MessageBox.Show("Error en la matriz llave: " + excepcion.Message);
+                MessageBox.Show("Error inesperado en la matriz llave: " + excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

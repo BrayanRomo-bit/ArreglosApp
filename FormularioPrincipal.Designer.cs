@@ -64,7 +64,7 @@ namespace AplicacionArreglos
             this.lblEntradaLlave.AutoSize = true;
             this.lblEntradaLlave.Location = new System.Drawing.Point(300, 20);
             this.lblEntradaLlave.Name = "lblEntradaLlave";
-            this.lblEntradaLlave.Text = "Matriz Llave (3x3):";
+            this.lblEntradaLlave.Text = "Matriz Llave (Ingresa 9 números):";
 
             // Matrix TextBoxes
             int inicioX = 300, inicioY = 50, espaciado = 40;
